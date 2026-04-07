@@ -1,7 +1,7 @@
+"use client";
+
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-
-const modalRoot = document.getElementById("modal-root")!;
 
 interface ModalProps {
   children: React.ReactNode;
@@ -22,6 +22,12 @@ export default function Modal({ children, onClose }: ModalProps) {
       document.body.style.overflow = "auto";
     };
   }, [onClose]);
+
+  
+  if (typeof document === "undefined") return null;
+
+  const modalRoot = document.getElementById("modal-root");
+  if (!modalRoot) return null;
 
   return createPortal(
     <div onClick={onClose}>
